@@ -1,8 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../prisma/prisma.service';
+
+interface SignupParams {
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+}
 
 @Injectable()
 export class AuthService {
-  signup(body) {
-    return body;
+  constructor(private readonly prismaService: PrismaService) {}
+  async signup({ email }: SignupParams) {
+    const userExists = await this.prismaService.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    console.log({ userExists });
   }
 }
