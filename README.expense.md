@@ -110,7 +110,7 @@ bootstrap();
 > the option whitelist makes sure that only defined fields  
 > are going through  
 
-### typedeclaration for @IsOptional()
+### type declaration for @IsOptional()
 
 ```js
 // ./src/data
@@ -118,4 +118,43 @@ export interface OptionalType {
   amount?: number;
   source?: string;
 }
+```
+# 2
+
+## running postgres in docker
+
+```yaml
+# docker-compose.yaml
+
+version: '3.8' # optional
+services:
+  realtor-db:   # db-name for docker connection
+    image: postgres:13
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: <username>
+      POSTGRES_PASSWORD: <'password'>
+      POSTGRES_DB: realtor # db-name for .env connection
+    networks:
+      - anyname
+networks:
+  anyname:
+```
+```bash
+$ docker compose up realtor-db -d  # -d runs in background
+```
+
+## prisma ORM
+
+```bash
+$ npm i prisma # --save-dev
+$ npx prisma init
+```
+
+now create your models in  
+`prisma/schema.prisma`  
+then run
+```bash
+$ npx prisma db push
 ```
