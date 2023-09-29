@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {ConflictException, Injectable} from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 
 interface SignupParams {
@@ -17,6 +17,9 @@ export class AuthService {
         email,
       },
     });
+    if (userExists) {
+      throw new ConflictException();
+    }
     console.log({ userExists });
   }
 }

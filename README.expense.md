@@ -23,8 +23,17 @@ $  npm run start:dev
 - guards
 - data transfer objects
 - ...
-
+### Generator commands
+```bash
+$ nest g module <module-name>
+$ nest g controller <controller-name>
+$ nest g service <service-name>
+```
 ## Controller
+Create a controller with a different name than the module
+```bash
+$ nest g controller <controller-name> <module-name>
+```
 needs a decorator @Controller  
 ```js
 import { Controller, Get } from '@nesjs/common';
@@ -145,7 +154,7 @@ networks:
 $ docker compose up realtor-db -d  # -d runs in background
 ```
 
-## prisma ORM
+# prisma ORM
 
 ```bash
 $ npm i prisma # --save-dev
@@ -158,3 +167,26 @@ then run
 ```bash
 $ npx prisma db push
 ```
+## prisma client
+> to interact with the database you  
+> need to import the class PrismaClient  
+```js
+import { PrismaClient } from "@prisma/client";
+// connect and disconnect interfaces:
+import { OnModuleInit, OnModuleDestroy } from "@nestjs/common";
+
+@Injectable
+export class PrismaService 
+        extends PrismaClient 
+        implements OnModuleInit, OnModuleDestroy
+{
+  async onModuleInit() {
+    await this.$connect();
+  }
+  async onModuleDestroy() {
+    await this.$disconnect();
+  }
+}
+```
+
+
