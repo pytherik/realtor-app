@@ -188,5 +188,17 @@ export class PrismaService
   }
 }
 ```
+# Encryption
+## bcryptjs
+```bash
+$ npm i bcryptjs
+$ npm i @types/bcryptjs
+```
+## jwt - jsonwebtoken 
+```bash
+$ npm i jsonwebtoken @types/jsonwebtoken
+```
+
+
 
 
